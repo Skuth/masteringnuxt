@@ -17,7 +17,26 @@ export default ({ env, $responseParse }, inject) => {
     }
   }
 
+  const getReviewsByHomeId = async homeId => {
+    try {
+      const response = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/reviews/query`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          filters: `homeId:${homeId}`,
+          hitsPerPage: 6,
+          attributesToHighlight: []
+        })
+      })
+
+      return $responseParse.success(response)
+    } catch (error) {
+      return $responseParse.error(error)
+    }
+  }
+
   inject("dataApi", {
-    getHome
+    getHome,
+    getReviewsByHomeId
   })
 }
