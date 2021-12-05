@@ -1,33 +1,43 @@
 export default ({ env }, inject) => {
-  let mapLoaded = false
-  let mapWaiting = null
+  let isLoaded = false
+  let waiting = []
 
-  const initMap = () => {
-    mapLoaded = true
+  const initGoogleMaps = () => {
+    isLoaded = true
 
-    if (mapWaiting) {
-      const { canvas, location } = mapWaiting
-      renderMap(canvas, location)
-      mapWaiting = null
-    }
+    waiting.forEach(item => {
+      if (typeof item.fn === "function") {
+        item.fn(...item.arguments)
+      }
+    })
+
+    waiting = []
   }
 
   const addScript = () => {
     const script = document.createElement("script")
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${env.GoogleApiKey}&libraries=places&callback=initMap`
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${env.GoogleApiKey}&libraries=places&callback=initGoogleMaps`
     script.async = true
 
-    window.initMap = initMap
+    window.initGoogleMaps = initGoogleMaps
     document.head.appendChild(script)
   }
 
-  const showMap = (canvas, location) => {
-    if (mapLoaded) renderMap(canvas, location)
-    else mapWaiting = { canvas, location }
-  }
+  const showMap = (...args) => {
+    if (!isLoaded) {
+      waiting.push({
+        fn: showMap,
+        arguments: args
+      })
 
-  const renderMap = (canvas, location) => {
-    const position = new window.google.maps.LatLng(location.lat, location.lng)
+      return
+    }
+
+    const [ canvas, location ] = args
+
+    const { lat, lng } = location
+
+    const position = new window.google.maps.LatLng(lat, lng)
 
     const mapOptions = {
       zoom: 18,
