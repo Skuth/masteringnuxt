@@ -35,8 +35,26 @@ export default ({ env, $responseParse }, inject) => {
     }
   }
 
+  const getUserByHomeId = async homeId => {
+    try {
+      const response = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/users/query`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          filters: `homeId:${homeId}`,
+          attributesToHighlight: []
+        })
+      })
+
+      return $responseParse.success(response)
+    } catch (error) {
+      return $responseParse.error(error)
+    }
+  }
+
   inject("dataApi", {
     getHome,
-    getReviewsByHomeId
+    getReviewsByHomeId,
+    getUserByHomeId
   })
 }

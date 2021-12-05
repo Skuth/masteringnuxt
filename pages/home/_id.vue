@@ -39,6 +39,17 @@
         :target="150"
       />
     </div>
+
+    <div>
+      <img
+        :src="user.image"
+        :alt="user.name"
+      >
+      <span>{{ user.name }}</span>
+      <p>{{ user.joined | formatDate }}</p>
+      <p>{{ user.reviewCount }}</p>
+      <p>{{ user.description }}</p>
+    </div>
   </div>
 </template>
 
@@ -59,17 +70,20 @@
       }
     },
     async asyncData({ route, $dataApi, error }) {
-      const homeResponse = await $dataApi.getHome(route.params.id)
+      const responses = await Promise.all([
+        $dataApi.getHome(route.params.id),
+        $dataApi.getReviewsByHomeId(route.params.id),
+        $dataApi.getUserByHomeId(route.params.id)
+      ])
 
-      if (homeResponse.error) return error({ statusCode: homeResponse.status, message: homeResponse.statusText })
+      const badResponse = responses.find(response => response.error)
 
-      const reviewResponse = await $dataApi.getReviewsByHomeId(route.params.id)
-
-      if (reviewResponse.error) return error({ statusCode: reviewResponse.status, message: reviewResponse.statusText })
+      if (badResponse) return error({ statusCode: badResponse.status, message: badResponse.statusText })
 
       return {
-        home: homeResponse.data,
-        reviews: reviewResponse.data.hits
+        home: responses[0].data,
+        reviews: responses[1].data.hits,
+        user: responses[2].data.hits[0]
       }
     },
     head() {
