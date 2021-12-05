@@ -59,7 +59,7 @@ export default ({ env }, inject) => {
 
     const map = new window.google.maps.Map(canvas, mapOptions)
 
-    if (!markers) {
+    if (!markers.length) {
       const marker = new window.google.maps.Marker({
         position,
         clickable: false
