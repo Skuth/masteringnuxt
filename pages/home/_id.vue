@@ -28,11 +28,13 @@
 
 <script>
   export default {
-    async asyncData({ route, $dataApi }) {
-      const home = await $dataApi.getHome(route.params.id)
+    async asyncData({ route, $dataApi, error }) {
+      const response = await $dataApi.getHome(route.params.id)
+
+      if (response.error) return error({ statusCode: response.status, message: response.statusText })
 
       return {
-        home
+        home: response.data
       }
     },
     head() {
