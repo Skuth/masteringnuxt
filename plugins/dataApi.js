@@ -52,9 +52,29 @@ export default ({ env, $responseParse }, inject) => {
     }
   }
 
+  const getHomesByLocation = async (lat, lng, radiusInMeters = 1500) => {
+    try {
+      const response = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/query`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          aroundLatLng: `${lat}, ${lng}`,
+          aroundRadius: radiusInMeters,
+          hitsPerPage: 10,
+          attributesToHighlight: []
+        })
+      })
+
+      return $responseParse.success(response)
+    } catch (error) {
+      return $responseParse.error(error)
+    }
+  }
+
   inject("dataApi", {
     getHome,
     getReviewsByHomeId,
-    getUserByHomeId
+    getUserByHomeId,
+    getHomesByLocation
   })
 }

@@ -3,14 +3,15 @@
     <header class="template__header">
       <nuxt-link to="/">
         <span>Home</span>
-        <input
-          ref="citySearch"
-          type="search"
-          class="search__city__input"
-          placeholder="Cidade"
-          @changed="searchChanged"
-        >
       </nuxt-link>
+      <input
+        ref="citySearch"
+        autocomplete="off"
+        type="search"
+        class="search__city__input"
+        placeholder="Cidade"
+        @changed="searchChanged"
+      >
     </header>
 
     <nuxt />

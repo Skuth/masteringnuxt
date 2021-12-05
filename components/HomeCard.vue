@@ -7,7 +7,7 @@
     >
     <p>{{home.title}}</p>
     <p>{{ home.location.address }} {{ home.location.city }} {{ home.location.state }}</p>
-    <p>{{ home.guest }} gueests</p>
+    <p>{{ $helpers.pluralize(home.guests, 'guest') }}</p>
     <p>${{ home.pricePerNight }} / night</p>
   </div>
 </template>
