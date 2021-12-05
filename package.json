@@ -1,5 +1,5 @@
 {
-  "name": "NuxtBnB",
+  "name": "mastering-nuxt",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "lint": "yarn lint:js && yarn lint:style"
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7"
   },

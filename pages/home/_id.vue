@@ -18,9 +18,11 @@
     </div>
     <div>
       <img src="/images/star.svg" alt="Marker" width="20" height="20">
-      <spam>{{ home.reviewValue }}</spam>
+      <span>{{ home.reviewValue }}</span>
     </div>
     <p>{{ home.guests }} guests, {{ home.bedrooms }} rooms, {{ home.beds }} beds, {{ home.bathrooms }} bath</p>
+
+    <Map :location="home._geoloc" />
   </div>
 </template>
 
