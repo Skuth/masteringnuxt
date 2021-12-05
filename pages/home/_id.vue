@@ -22,7 +22,7 @@
     </div>
     <p>{{ home.guests }} guests, {{ home.bedrooms }} rooms, {{ home.beds }} beds, {{ home.bathrooms }} bath</p>
 
-    <Map :location="home._geoloc" />
+    <Map class="home__map" :location="home._geoloc" />
 
     <div
       v-for="review in reviews"
@@ -98,6 +98,9 @@
 .home {
   &__images {
     display: flex;
+  }
+  &__map {
+    height: 600px;
   }
 }
 </style>

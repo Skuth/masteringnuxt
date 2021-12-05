@@ -1,15 +1,31 @@
 <template>
   <div class="search">
-    <template v-if="homes.length">
-      <HomeRow
-        v-for="home in homes"
-        :key="home.objectID"
-        :home="home"
-      />
-    </template>
-    <template v-else>
-      <p>No results found</p>
-    </template>
+    <p class="search__title">Results for {{ label }}</p>
+
+    <div class="search__container">
+      <div class="search__homes">
+        <template v-if="homes.length">
+          <nuxt-link
+            v-for="home in homes"
+            :key="home.objectID"
+            :to="`/home/${home.objectID}`"
+          >
+            <HomeRow
+              :home="home"
+              @mouseover.native="highlightMarker(home.objectID, true)"
+              @mouseout.native="highlightMarker(home.objectID, false)"
+            />
+          </nuxt-link>
+        </template>
+        <template v-else>
+          <p>No results found</p>
+        </template>
+      </div>
+
+      <div class="search__map">
+        <Map :location="{ lat, lng }" :markers="getHomeMarkers()" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,14 +55,38 @@
       return {
         title: `Home around ${$route.query.label}`
       }
+    },
+    methods: {
+      highlightMarker(homeId, isHighlighted) {
+        document.querySelector(`.home-${homeId}`)?.classList?.toggle("marker-highlight", isHighlighted)
+      },
+      getHomeMarkers() {
+        return this.homes.map(home => ({
+          ...home._geoloc,
+          pricePerNight: home.pricePerNight,
+          id: home.objectID
+        }))
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
 .search {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  &__title {
+    padding: 10px;
+    font-size: 1.25rem;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 85vh;
+  }
+  &__homes {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    gap: 20px;
+  }
 }
 </style>

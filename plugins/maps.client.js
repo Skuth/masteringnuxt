@@ -33,7 +33,7 @@ export default ({ env }, inject) => {
       return
     }
 
-    const [ canvas, location ] = args
+    const [ canvas, location, markers ] = args
 
     const { lat, lng } = location
 
@@ -43,15 +43,52 @@ export default ({ env }, inject) => {
       zoom: 18,
       center: position,
       disableDefaultUi: true,
-      zoomControl: true
+      zoomControl: true,
+      styles: [
+        {
+          featureType: "poi.business",
+          elementType: "labels.icon",
+          stylers: [
+            {
+              visibility: "off"
+            }
+          ]
+        }
+      ]
     }
 
     const map = new window.google.maps.Map(canvas, mapOptions)
-    const marker = new window.google.maps.Marker({
-      position
+
+    if (!markers) {
+      const marker = new window.google.maps.Marker({
+        position,
+        clickable: false
+      })
+
+      marker.setMap(map)
+
+      return
+    }
+
+    const bounds = new window.google.maps.LatLngBounds()
+
+    markers.forEach(home => {
+      const position = new window.google.maps.LatLng(home.lat, home.lng)
+      const marker = new window.google.maps.Marker({
+        position,
+        label: {
+          text: `$${home.pricePerNight}`,
+          className: `marker home-${home.id}`
+        },
+        icon: "https://maps.gstatic.com/mapfiles/transparent.png",
+        clickable: false
+      })
+
+      marker.setMap(map)
+      bounds.extend(position)
     })
 
-    marker.setMap(map)
+    map.fitBounds(bounds)
   }
 
   const makeAutoComplete = (...args) => {
