@@ -38,7 +38,7 @@
   export default {
     props: {
       reviews: {
-        type: Object,
+        type: Array,
         required: true
       }
     }
