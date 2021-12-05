@@ -1,29 +1,27 @@
 <template>
-  <div class="search">
-    <p class="search__title">Results for {{ label }}</p>
+  <div class="app__search__Results__page">
 
-    <div class="search__container">
-      <div class="search__homes">
-        <template v-if="homes.length">
-          <nuxt-link
+    <div class="app__search__results">
+      <div class="app__search__results__listing">
+        <h2 class="app__title">Stays in {{ label }}</h2>
+
+        <nuxt-link
             v-for="home in homes"
             :key="home.objectID"
             :to="`/home/${home.objectID}`"
           >
             <HomeRow
+              class="app__house"
               :home="home"
               @mouseover.native="highlightMarker(home.objectID, true)"
               @mouseout.native="highlightMarker(home.objectID, false)"
             />
           </nuxt-link>
-        </template>
-        <template v-else>
-          <p>No results found</p>
-        </template>
       </div>
-
-      <div class="search__map">
-        <Map :location="{ lat, lng }" :markers="getHomeMarkers()" />
+      <div class="app__search__results__map">
+        <div class="app__map">
+          <Map class="h-100" :location="{ lat, lng }" :markers="getHomeMarkers()" />
+        </div>
       </div>
     </div>
   </div>
@@ -58,7 +56,7 @@
     },
     methods: {
       highlightMarker(homeId, isHighlighted) {
-        document.querySelector(`.home-${homeId}`)?.classList?.toggle("marker-highlight", isHighlighted)
+        document.querySelector(`.home--${homeId}`)?.classList?.toggle("marker__highlight", isHighlighted)
       },
       getHomeMarkers() {
         return this.homes.map(home => ({
@@ -70,23 +68,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-.search {
-  &__title {
-    padding: 10px;
-    font-size: 1.25rem;
-  }
-  &__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 85vh;
-  }
-  &__homes {
-    display: flex;
-    flex-direction: column;
-    padding: 0 10px;
-    gap: 20px;
-  }
-}
-</style>

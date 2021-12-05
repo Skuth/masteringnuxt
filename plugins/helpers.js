@@ -7,7 +7,21 @@ export default (_context, inject) => {
     return `${text}s`
   }
 
+  const formatDate = dateStr => {
+    const date = new Date(dateStr)
+
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }
+
+    return date.toLocaleDateString("pt-br", options)
+  }
+
   inject("helpers", {
-    pluralize
+    pluralize,
+    formatDate
   })
 }

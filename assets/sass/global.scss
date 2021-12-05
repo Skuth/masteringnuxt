@@ -1,6 +1,5 @@
 * {
   padding: 0;
-  border: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
@@ -14,9 +13,497 @@
   transition: background 0.5s, color 0.5s, border-color 0.5s;
   font-weight: 900;
   color: #000;
-  &-highlight {
+  &__highlight {
     background: #232323;
     border-color: #666;
     color: #fff !important;
+  }
+}
+
+$cities: paris, new-york, london, dubai, san-francisco, cancun;
+@each $city in $cities {
+  .city__#{$city} {
+    background-image: url(/images/photos/#{$city}.jpg);
+  }
+}
+
+.app {
+
+  &__flex {
+    @apply flex justify-between items-center;
+  }
+
+  &__padded__vertical {
+    @apply py-20;
+  }
+
+  &__background__grey {
+    @apply bg-catskill-white;
+  }
+
+  &__container {
+    @apply max-w-400 mx-auto px-10;
+  }
+
+  &__header {
+    @apply flex items-center py-9 px-10;
+  }
+
+  &__logo {
+    @apply inline-block mr-10;
+  }
+
+  &__description {
+    @apply text-trout text-lg;
+  }
+
+  &__tag {
+    @apply bg-zumthor text-east-bay text-lg py-3 px-4 inline-block mr-3 mb-3 rounded;
+  }
+
+  &__address {
+    background-image: url(/images/icons/pin.svg);
+    background-position: top 2px left;
+    @apply pl-5 bg-no-repeat text-dodger-blue text-sm underline;
+  }
+
+  &__map {
+    @apply flex items-center justify-center h-136 text-white bg-polo-blue text-2xl;
+  }
+
+  &__rating {
+    background-image: url(/images/icons/star.svg);
+    background-position: top 2px left;
+    @apply pl-5 bg-no-repeat text-mineshaft font-medium text-sm;
+
+    > span {
+      @apply text-polo-blue;
+    }
+  }
+
+  &__price {
+    @apply text-mineshaft font-medium mt-3;
+
+    > span {
+      @apply text-polo-blue font-normal;
+    }
+  }
+
+  &__big__button {
+    @apply text-xl bg-dodger-blue text-white py-5 w-full rounded-lg mt-5 shadow-2xl;
+  }
+
+  &__search {
+    @apply flex items-center;
+
+    > input {
+      @apply border-2 border-link-water rounded-lg text-lg py-3 px-2 mr-8;
+
+      &.datepicker {
+        background-image: url(/images/icons/calendar.svg);
+        background-position: center right 0.625rem;
+        @apply bg-no-repeat;
+      }
+    }
+
+    > button {
+      @apply bg-dodger-blue self-stretch px-5 rounded-lg;
+    }
+  }
+
+  &__user__menu {
+    @apply ml-auto flex items-center;
+
+    .name {
+      @apply ml-2;
+    }
+
+    .avatar {
+      @apply w-12 h-12 rounded-full border-2 border-dodger-blue ml-10;
+    }
+  }
+
+  &__hero {
+    background-image: url(/images/photos/beach.jpg);
+    @apply h-148 bg-cover rounded-3xl flex items-end justify-center pb-12;
+
+    > h2 {
+      @apply text-white font-medium text-3xl;
+    }
+  }
+
+  &__wrapper {
+    @apply max-w-282 mx-auto;
+  }
+
+  &__title {
+    font-stretch: condensed;
+    @apply text-east-bay text-4xl font-bold pb-15;
+  }
+
+  &__subtitle {
+    font-stretch: condensed;
+    @apply text-east-bay text-3xl font-medium pb-8;
+  }
+
+  &__gallery {
+    @apply grid grid-cols-4 gap-6;
+
+    &__item {
+      @apply h-104 rounded-2xl p-5 flex items-end text-white shadow-2xl;
+
+      h3 {
+        @apply font-medium text-3xl;
+      }
+
+      p {
+        @apply text-2xl uppercase tracking-widest;
+      }
+    }
+  }
+
+  &__testimonials {
+    @apply flex flex-wrap;
+
+    > div {
+      @apply w-1/2 mb-15;
+
+      &:nth-child(odd) {
+        @apply pr-4;
+      }
+
+      &:nth-child(even) {
+        @apply pl-4;
+      }
+
+      .app__testimonial__header {
+        @apply flex items-center mb-5;
+
+        img {
+          @apply mr-2 rounded-full;
+        }
+
+        .app__testimonial__name {
+          @apply text-east-bay font-medium text-xl;
+        }
+
+        .app__testimonial__date {
+          @apply text-polo-blue font-medium text-sm;
+        }
+      }
+
+      .app__testimonial__body {
+        background-image: url(/images/icons/quote.svg);
+        text-indent: 22px;
+        @apply bg-no-repeat text-sm text-trout;
+
+        > a {
+          @apply text-dodger-blue;
+        }
+      }
+    }
+  }
+
+  &__testimonials__actions {
+    @apply w-1/2 mx-auto;
+  }
+
+  &__dual__picture {
+    @apply flex items-center w-full rounded-2xl overflow-hidden;
+
+    > div {
+      @apply inline-block flex-grow w-1/2 h-94 p-5 flex items-end text-white justify-center text-center;
+
+      h3 {
+        @apply font-medium text-3xl;
+      }
+
+      p {
+        @apply text-2xl uppercase tracking-widest;
+      }
+    }
+  }
+
+  &__double__column {
+    @apply flex;
+
+    > div {
+      &:nth-child(1) {
+        @apply w-7/12 border-dashed border-r border-dusty-gray pr-14;
+      }
+
+      &:nth-child(2) {
+        @apply w-5/12 pl-14;
+      }
+    }
+  }
+
+  &__carousel {
+
+    &__header {
+      @apply flex justify-between items-center mb-15;
+
+      h2 {
+        @apply text-east-bay text-4xl font-bold;
+      }
+    }
+
+    &__items {
+      @apply grid grid-cols-3 gap-6;
+    }
+
+    &__pagination {
+      @apply flex items-center;
+
+      &__page {
+        @apply text-east-bay text-xl mr-6;
+      }
+
+      &__buttons {
+        button {
+          font-size: 1px;
+          background-image: url(/images/icons/chevron.svg);
+          @apply bg-no-repeat bg-center rounded-full border-2 border-dodger-blue h-12 w-12 bg-transparent text-transparent;
+
+          &:focus {
+            @apply outline-none;
+          }
+
+          &:hover {
+            @apply opacity-75;
+          }
+
+          &:first-child {
+            transform: scaleX(-1);
+          }
+        }
+      }
+    }
+  }
+
+  &__masonry {
+    @apply grid grid-cols-4 grid-rows-2 gap-6 mb-18;
+    grid-template-rows: 280px 280px;
+    > div {
+      background-size: cover;
+      &:nth-child(1) {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+        @apply rounded-l-3xl;
+      }
+
+      &:nth-child(2) {
+        grid-column: 3 / 4;
+      }
+
+      &:nth-child(3) {
+        grid-column: 4 / 5;
+        @apply rounded-tr-3xl;
+      }
+
+      &:nth-child(4) {
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+      }
+
+      &:nth-child(5) {
+        grid-column: 4 / 5;
+        grid-row: 2 / 3;
+        @apply rounded-br-3xl;
+      }
+    }
+  }
+
+  &__property__details {
+    h1 {
+      @apply text-east-bay text-4xl font-medium leading-snug mb-8;
+    }
+
+    .app__address {
+      @apply text-lg bg-left;
+    }
+
+    .app__rating {
+      @apply text-lg bg-left;
+    }
+
+    .app__price {
+      @apply text-dodger-blue text-6xl mt-0 leading-none mb-10;
+
+      span {
+        @apply text-4xl;
+      }
+    }
+
+    .app__search {
+      @apply grid grid-cols-2 gap-4;
+
+      input {
+        @apply mr-0;
+      }
+    }
+
+    &__footer {
+      @apply border-t border-dashed border-dusty-gray pt-12 mt-14 pb-18 text-xl font-medium text-east-bay;
+    }
+  }
+
+  &__house {
+    @apply rounded-lg bg-white shadow-xl;
+
+    &__header {
+      img {
+        @apply rounded-t-lg;
+      }
+    }
+
+    h2 {
+      @apply font-medium text-lg py-2;
+    }
+
+    &__body {
+      @apply p-5;
+    }
+
+    &__footer {
+      @apply flex items-center justify-between mt-8 text-mineshaft text-sm;
+    }
+
+    &__guests {
+      background-image: url(/images/icons/group.svg);
+      background-size: auto 20px;
+      @apply pl-6 bg-no-repeat;
+    }
+  }
+
+  &__host {
+    &__header {
+      @apply flex items-center mb-5;
+
+      img {
+        @apply mr-5 w-24 rounded-lg;
+      }
+
+      .app__host__name {
+        @apply text-east-bay font-medium text-xl;
+      }
+
+      .app__host__date {
+        @apply text-polo-blue font-medium text-sm mb-5;
+      }
+
+      .app__host__reviews {
+        background-image: url(/images/icons/star-blue.svg);
+        @apply text-east-bay text-xl mr-10 bg-left bg-no-repeat pl-8;
+      }
+
+      .app__host__medal {
+        background-image: url(/images/icons/medal.svg);
+        @apply text-east-bay text-xl  bg-left bg-no-repeat pl-8;
+      }
+    }
+
+    &__description {
+      @apply text-trout mt-8;
+    }
+  }
+
+  &__error__page {
+    background-image:
+      url(/images/illustrations/wave.svg),
+      url(/images/illustrations/mountains.svg),
+      linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(157,187,215,1) 100%);
+    background-position:
+      center,
+      bottom -82px center,
+      center;
+    background-size:
+      cover,
+      auto,
+      cover;
+    @apply bg-no-repeat flex items-center justify-center min-h-screen;
+  }
+
+  &__search__results__page {
+    @apply flex flex-col;
+    height: 85vh;
+  }
+
+  &__search__results {
+    min-height: 85vh;
+    @apply flex overflow-hidden;
+
+    &__listing {
+      @apply bg-catskill-white w-8/12 p-10 max-w-200 overflow-auto;
+
+      .app__title {
+        @apply pb-10;
+      }
+
+      .app__house {
+        @apply flex mb-5 shadow-none relative;
+
+        .app__house__header {
+          @apply rounded-t-none rounded-l-lg;
+          width: 360px;
+          background-size: cover;
+        }
+
+        .app__house__body {
+          @apply flex-1;
+
+          .app__fav {
+            @apply absolute top-0 right-0 mt-5 mr-5;
+          }
+
+          h2 {
+            @apply pt-0;
+          }
+
+          .app__amenities {
+            @apply text-lynch pt-5 pb-4 text-sm leading-relaxed;
+          }
+
+          .app__price {
+            @apply mt-0;
+          }
+        }
+      }
+
+      &__pagination {
+        @apply flex justify-center items-center mt-10;
+
+        .app__next, .app__prev {
+          font-size: 1px;
+          background-image: url(/images/icons/chevron.svg);
+          @apply mx-8 bg-no-repeat bg-center rounded-full border-2 border-dodger-blue h-10 w-10 bg-transparent text-transparent;
+        }
+
+        .app__prev {
+          transform: scaleX(-1);
+        }
+
+        .app__page__button {
+          padding: 7px 6px 7px 8px;
+          @apply text-sm text-east-bay rounded-lg;
+
+          &__active {
+            @apply border border-polo-blue;
+          }
+        }
+      }
+
+      &__footer {
+        @apply text-center text-polo-blue text-sm mt-4;
+      }
+    }
+
+    &__map {
+      @apply flex-1;
+
+      .app__map {
+        @apply h-full;
+      }
+    }
   }
 }

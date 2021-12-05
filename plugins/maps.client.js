@@ -78,7 +78,7 @@ export default ({ env }, inject) => {
         position,
         label: {
           text: `$${home.pricePerNight}`,
-          className: `marker home-${home.id}`
+          className: `marker home--${home.id}`
         },
         icon: "https://maps.gstatic.com/mapfiles/transparent.png",
         clickable: false
