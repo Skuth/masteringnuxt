@@ -54,9 +54,33 @@ export default ({ env }, inject) => {
     marker.setMap(map)
   }
 
+  const makeAutoComplete = (...args) => {
+    if (!isLoaded) {
+      waiting.push({
+        fn: makeAutoComplete,
+        arguments: args
+      })
+
+      return
+    }
+
+    const [ input ] = args
+
+    const autoCompleteOptions = {
+      types: [ "(cities)" ]
+    }
+
+    const autoComplete = new window.google.maps.places.Autocomplete(input, autoCompleteOptions)
+    autoComplete.addListener('place_changed', () => {
+      const place = autoComplete.getPlace()
+      input.dispatchEvent(new CustomEvent('changed', { detail: place }))
+    })
+  }
+
   addScript()
 
   inject("maps", {
-    showMap
+    showMap,
+    makeAutoComplete
   })
 }
