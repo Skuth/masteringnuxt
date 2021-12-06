@@ -34,6 +34,7 @@
     text-align: center;
     img {
       border-radius: 14px;
+      margin: 0 auto;
     }
     h1 {
       font-size: 2.5rem;

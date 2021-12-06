@@ -27,6 +27,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "@/plugins/maps.client",
+    "@/plugins/auth.client",
     "@/plugins/helpers",
     "@/plugins/responseParse",
     "@/plugins/dataApi"
@@ -43,8 +44,6 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
-    // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module',
     '@nuxtjs/dotenv',
     '@nuxtjs/tailwindcss'
   ],
