@@ -1,6 +1,6 @@
 import Cookie from "js-cookie"
 
-export default ({ env, store }, inject) => {
+export default ({ env, store, $responseParse }, inject) => {
   const initAuth = () => {
     window.gapi.load("auth2", async () => {
       const auth2 = await window.gapi.auth2.init({
@@ -25,24 +25,31 @@ export default ({ env, store }, inject) => {
     document.head.appendChild(script)
   }
 
-  const parseUser = user => {
+  const parseUser = async user => {
     if (!user.isSignedIn()) {
       Cookie.remove(env.GoogleOAuthCookieName)
       store.commit("auth/SET_USER", { user: null })
       return
     }
 
-    const profile = user.getBasicProfile()
     const idToken = user.getAuthResponse().id_token
 
     Cookie.set(env.GoogleOAuthCookieName, idToken, { expires: 1/24, sameSite: "Lax" })
 
-    store.commit("auth/SET_USER", {
-      user: {
-        fullName: profile.getName(),
-        imageUrl: profile.getImageUrl()
-      }
-    })
+    try {
+      const response = await $responseParse.success(await fetch("/api/user"))
+      const user = response.data
+
+      store.commit("auth/SET_USER", {
+        user: {
+          fullName: user.name,
+          imageUrl: user.image
+        }
+      })
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
   }
 
   const signOut = () => {

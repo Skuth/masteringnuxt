@@ -26,10 +26,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "@/plugins/maps.client",
-    "@/plugins/auth.client",
     "@/plugins/helpers",
     "@/plugins/responseParse",
+    "@/plugins/maps.client",
+    "@/plugins/auth.client",
     "@/plugins/dataApi"
   ],
 
@@ -49,7 +49,11 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    "@/modules/auth",
+    "@/modules/algolia"
+
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
